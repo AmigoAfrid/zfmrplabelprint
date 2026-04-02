@@ -1,0 +1,154 @@
+{
+  "_version": "1.81.0",
+  "sap.app": {
+    "id": "zfmrplabelprint",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.20.2",
+      "toolsId": "aec9b0bc-b8f2-4ef7-b73e-d6bca0a71b80"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "ZF_MRP_LABEL_PRINT-display": {
+          "semanticObject": "ZF_MRP_LABEL_PRINT",
+          "action": "display",
+          "title": "{{ZF_MRP_LABEL_PRINT-display.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZSB_MRP_LABEL/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ZSB_MRPLABEL_DESC_VAN": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZSB_MRPLABEL_DESC_VAN',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/ZSB_MRPLABEL_DESC/ZSB_MRPLABEL_DESC_VAN.xml"
+        }
+      },
+      "ZSB_MRPLABEL_DESC": {
+        "uri": "/sap/opu/odata/sap/ZSB_MRPLABEL_DESC/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "ZSB_MRPLABEL_DESC_VAN"
+          ],
+          "localUri": "localService/ZSB_MRPLABEL_DESC/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "config": {
+      "fullWidth": true
+    },
+    "dependencies": {
+      "minUI5Version": "1.144.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.export": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "zfmrplabelprint.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      },
+      "ZSB_MRPLABEL_DESC": {
+        "dataSource": "ZSB_MRPLABEL_DESC",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "zfmrplabelprint.view",
+        "async": true,
+        "viewPath": "zfmrplabelprint.view"
+      },
+      "routes": [
+        {
+          "name": "RouteView1",
+          "pattern": ":?query:",
+          "target": [
+            "TargetView1"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetView1": {
+          "id": "View1",
+          "name": "View1"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "zfmrplabelprint.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

@@ -1,0 +1,23 @@
+specVersion: "4.0"
+metadata:
+  name: zfmrplabelprint
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          destination: mysystem_dev
+          url: https://my415449.s4hana.cloud.sap
+          authenticationType: reentranceTicket
+        app:
+          name: ZF_MRP_LABEL_PR
+          package: ZFIORI
+          transport: KK7K902166
+        exclude:
+          - /test/

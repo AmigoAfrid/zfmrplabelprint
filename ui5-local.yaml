@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: zfmrplabelprint
+type: application
+framework:
+  name: SAPUI5
+  version: 1.144.1
+  libraries:
+    - name: sap.m
+    - name: sap.ui.core
+    - name: sap.ushell
+    - name: themelib_sap_horizon
+server:
+  customMiddleware:
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        flp:
+          theme: sap_horizon
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertErrors: false
+        backend:
+          - url: https://my415431.s4hana.cloud.sap
+            destination: mysystem_cust
+            path: /sap
+          - url: https://my415431.s4hana.cloud.sap
+            destination: mysystem_cust
+            path: /sap/opu/odata/sap/ZSB_MRP_LABEL/
+          - path: /sap/opu/odata/sap/ZSB_MRPLABEL_DESC/
+            url: https://my415431.s4hana.cloud.sap
+            destination: mysystem_cust
+    - name: sap-fe-mockserver
+      beforeMiddleware: csp
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /sap/opu/odata/sap/ZSB_MRP_LABEL
+            metadataPath: ./webapp/localService/mainService/metadata.xml
+            mockdataPath: ./webapp/localService/mainService/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/ZSB_MRPLABEL_DESC
+            metadataPath: ./webapp/localService/ZSB_MRPLABEL_DESC/metadata.xml
+            mockdataPath: ./webapp/localService/ZSB_MRPLABEL_DESC/data
+            generateMockData: true
+        annotations:
+          - localPath: ./webapp/localService/ZSB_MRPLABEL_DESC/ZSB_MRPLABEL_DESC_VAN.xml
+            urlPath: /sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZSB_MRPLABEL_DESC_VAN',Version='0001')/$value/

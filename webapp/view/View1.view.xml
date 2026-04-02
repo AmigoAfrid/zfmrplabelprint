@@ -1,0 +1,113 @@
+<mvc:View controllerName="zfmrplabelprint.controller.View1"
+    xmlns="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified"
+    xmlns:c="sap.ui.core"
+    xmlns:m="sap.m"
+    height="100%">
+    <m:Page
+        showHeader="false"
+        enableScrolling="false"
+        class="sapUiContentPadding">
+        <m:content>
+
+            <!-- <m:HBox alignItems="Center" > -->
+
+                <Table  class="mrpWatermarkTable"
+                    enableBusyIndicator="true"
+                    threshold="100"
+                    rowSelectionChange="onRowSelect"
+                    rows="{ColorUploadModel>/Datass}"
+                    selectionBehavior="Row"
+                    fixedColumnCount="100"
+                    selectionMode="Multi"
+                    id="mrptable"
+                    enableSelectAll="true"
+                    rowMode="Fixed"
+                    width="100%">
+                    <extension>
+
+                    <!-- width="55rem" -->
+
+                        <m:OverflowToolbar style="Clear">
+                            <m:Title id="title" text="MRP Label Print"/>
+                            <m:ToolbarSpacer />
+                            <u:FileUploader
+                                id="fileUploader"
+                                name="excelUploader"
+                                tooltip="Upload your file to the table"
+                                change="onmrplabelprintUploadChange"
+                                fileType="xlsx,xls"
+                                placeholder="Choose Excel file..."
+                                style="Emphasized"/>
+                            <m:Button text="Upload" press="onmrplabelprintUploadPress" type="Accept" icon="sap-icon://upload" />
+                            <m:Button text="Download Template" icon="sap-icon://download" press="onDownloadTemplate" type="Emphasized" class="sapUiTinyMargin" />
+                        </m:OverflowToolbar>
+                        
+                    </extension>
+
+                    <columns>
+
+                        <Column width="15rem">
+                            <m:Label text="Material" />
+                            <template>
+                                <m:Input value="{ColorUploadModel>Product}"  />
+                            </template>
+                        </Column>
+
+                        <Column width="15rem"  >
+                            <m:Label text="Description" />
+                            <template>
+                                <m:Text text="{ColorUploadModel>ProductDescription}" wrapping="false" />
+                            </template>
+                        </Column>
+
+                        <Column width="10rem">
+                            <m:Label text="Quantity" />
+                            <template>
+                                <m:Input value="{ColorUploadModel>Quantity}" type="Number"  />
+                            </template>
+                        </Column>
+
+                        <Column width="10rem" visible="false" >
+                            <m:Label text="No Label" />
+                            <template>
+                                <m:Input value="{ColorUploadModel>NoLabel}" type="Number" editable="false" />
+                                <!-- <m:ObjectNumber number="{ColorUploadModel>NoLabel}" state="{=${ColorUploadModel>NoLabel}>10?'Success':'Information'}"  /> -->
+                            </template>
+                        </Column>
+
+                        <Column width="10rem" visible="false" >
+                            <m:Label text="Label Quantity" />
+                            <template>
+                                <m:Input value="{ColorUploadModel>LabelQuantity}" type="Number" editable="false" />
+                            </template>
+                        </Column>
+
+                        <Column width="14rem">
+                            <m:Label text="Date Of Manufacture" />
+                            <template>
+                                <m:Text text="{ColorUploadModel>DateOfManufacture}" />
+                            </template>
+                        </Column>
+
+                    </columns>
+                </Table>
+
+                <!-- <m:Image id="imgBike" class="sapUiSmallMargin"
+                    src="{= sap.ui.require.toUrl('zbike/util/bike.webp') }" 
+                    width="350px" mode="Image"
+                    height="225px"
+                    decorative="true"
+                    tooltip="RIVER" />
+            </m:HBox> -->
+
+            <m:Toolbar class="footerBar" design="Auto">
+                <m:Button text="Reset" press="onResetPress" type="Critical" icon="sap-icon://reset"  />
+                <m:ToolbarSpacer/>
+                <m:Button text="Print" icon="sap-icon://print" press="onPrint" type="Attention" class="sapUiTinyMargin" />
+            </m:Toolbar>
+
+        </m:content>
+    </m:Page>
+</mvc:View>

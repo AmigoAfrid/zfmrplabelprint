@@ -1,0 +1,18 @@
+/* Enter your custom styles here */
+
+.mrpWatermarkTable {
+    position: relative;
+}
+
+.mrpWatermarkTable::after {
+    content: "MRP LABEL"; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-25deg);
+    font-size: 4rem;
+    color: rgba(0, 0, 0, 0.08);
+    pointer-events: none;
+    z-index: 10;
+    white-space: nowrap;
+}
