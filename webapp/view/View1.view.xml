@@ -19,7 +19,6 @@
                     rowSelectionChange="onRowSelect"
                     rows="{ColorUploadModel>/Datass}"
                     selectionBehavior="Row"
-                    fixedColumnCount="100"
                     selectionMode="Multi"
                     id="mrptable"
                     enableSelectAll="true"
@@ -87,7 +86,7 @@
                         <Column width="14rem">
                             <m:Label text="Date Of Manufacture" />
                             <template>
-                                <m:Text text="{ColorUploadModel>DateOfManufacture}" />
+                                <m:Input value="{ColorUploadModel>DateOfManufacture}" />
                             </template>
                         </Column>
 
