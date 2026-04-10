@@ -12,10 +12,6 @@ sap.ui.define([
     return Controller.extend("zfmrplabelprint.controller.View1", {
         onInit() {
 
-            // this.byId("imgBike").setSrc(
-            //     sap.ui.require.toUrl("zfmrplabelprint/util/bike.webp")
-            // );
-
             this._pdfViewer = new sap.m.PDFViewer({
                 isTrustedSource: true,
                 width: "100%",
@@ -234,126 +230,6 @@ sap.ui.define([
             ];
         },
 
-        // onPrint: function () {
-        //     var oTable = this.byId("mrptable");
-        //     var aSelectedIndices = oTable.getSelectedIndices();
-
-        //     if (aSelectedIndices.length === 0) {
-        //         sap.m.MessageToast.show("Please select at least one row");
-        //         return;
-        //     }
-
-        //     var oModel = this.getView().getModel("ColorUploadModel");
-        //     var aData = oModel.getProperty("/Datass");
-
-        //     var sHTML = `
-        // <html>
-        // <head>
-        //     <title>MRP Label Print</title>
-        //     <style>
-        //         table {
-        //             width: 100%;
-        //             border-collapse: collapse;
-        //         }
-        //         th, td {
-        //             border: 1px solid black;
-        //             padding: 8px;
-        //         }
-        //         th {
-        //             text-align: left;   
-        //             background-color: #f2f2f2;
-        //         }
-        //         td {
-        //             text-align: left;   
-        //         }
-        //     </style>
-        // </head>
-        // <body>
-        //     <table>
-        //         <tr>
-        //             <th>Material</th>
-        //             <th>Description</th>
-        //             <th>Quantity</th>                    
-        //             <th>Label Quantity</th>
-        //             <th>Date of Manufacture</th>
-        //         </tr>
-        // `;
-        // // <th>No Label</th>
-
-        //     aSelectedIndices.forEach(function (iIndex) {
-        //         var oRow = aData[iIndex];
-        //         var Count = oRow.NoLabel;
-        //         for(var i=1 ; i<=Count ; i++){
-        //         sHTML += `<tr>
-        //             <td>${oRow.Material}</td>
-        //             <td>${oRow.Description}</td>
-        //             <td>${oRow.Quantity}</td>                    
-        //             <td>${oRow.LabelQuantity}</td>
-        //             <td>${oRow.DateOfManufacture}</td>
-        //         </tr>`;
-        //         }
-        //     });
-
-        //     // <td>${oRow.NoLabel}</td>
-
-        //     sHTML += "</table>";
-
-        //     var oPrintWindow = window.open("", "_blank");
-        //     oPrintWindow.document.write(sHTML);
-        //     oPrintWindow.document.close();
-        //     oPrintWindow.print();
-        // },
-
-        // onPrint: async function () {
-        //     sap.ui.core.BusyIndicator.show();
-
-        //      var oTable = this.byId("mrptable");
-        //     var aSelectedIndices = oTable.getSelectedIndices();
-
-        //     if (aSelectedIndices.length === 0) {
-        //         sap.m.MessageToast.show("Please select at least one row");
-        //         sap.ui.core.BusyIndicator.hide();
-        //         return;
-        //     }
-
-        //     var oModel = this.getView().getModel("ColorUploadModel");
-        //     var aData = oModel.getProperty("/Datass");
-
-        //     // aSelectedIndices.forEach(function (iIndex) {
-        //     //     var oRow = aData[iIndex];
-        //     //     var oMaterial = oRow.Material;
-        //     // });
-        //     var oRow = aData[aSelectedIndices[0]];
-        //     var oMaterial = oRow.Material;
-
-
-
-        //     try {
-        //         // Construct service URL
-        //         const sServiceUrl = `/sap/bc/http/sap/ZMRP_LABEL_PRINT?product=${oMaterial}`;
-        //         console.log("Service URL:", sServiceUrl);
-
-        //         // Fetch PDF data
-        //         const pdfData = await this.fetchPDFData(sServiceUrl);
-
-        //         const pdfContentArray = [pdfData];
-
-        //         // Display the PDF
-        //         this.displayPDFs(pdfContentArray);
-
-        //         // Clear inputs
-
-
-        //         sap.m.MessageToast.show("PDF displayed successfully!");
-        //     }catch (error) {
-        //         console.error("Error generating PDF:", error);
-        //         sap.m.MessageToast.show("Failed to generate PDF. Please try again.");
-        //     }finally {
-        //         sap.ui.core.BusyIndicator.hide();
-        //     }
-
-        // },
-
         onPrint: async function () {
             sap.ui.core.BusyIndicator.show();
 
@@ -378,8 +254,9 @@ sap.ui.define([
                     const oRow = aData[iIndex];
                     const oMaterial = oRow.Product;
                     const oQty = oRow.Quantity;
+                    const oDOM = String(oRow.DateOfManufacture);
 
-                    const sServiceUrl = `/sap/bc/http/sap/ZMRP_LABEL_PRINT?product=${oMaterial}`;
+                    const sServiceUrl = `/sap/bc/http/sap/ZMRP_LABEL_PRINT?product=${oMaterial}&Labelquantity=${oQty}&Dateofmanufacture=${oDOM}`;
                     console.log("Service URL:", sServiceUrl);
 
                     const pdfData = await this.fetchPDFData(sServiceUrl);
