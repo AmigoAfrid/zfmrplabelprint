@@ -19,6 +19,7 @@
                     rowSelectionChange="onRowSelect"
                     rows="{ColorUploadModel>/Datass}"
                     selectionBehavior="Row"
+                    fixedColumnCount="100"
                     selectionMode="Multi"
                     id="mrptable"
                     enableSelectAll="true"
